@@ -41,7 +41,7 @@ else:
     valgt_kolonne = st.selectbox("Velg salgskanal", options=sales_columns)
 
     # === Brukerinput for Prophet-modell ===
-    startdato = st.text_input("Startdato (må være første uke i datasettet)", "2015-04-12")
+    startdato = st.text_input("Startdato", "2015-04-12")
     fremtidig_uker = st.slider("Antall uker fremover å predikere", min_value=1, max_value=52, value=12)
 
     # === Prophet-modell ===
