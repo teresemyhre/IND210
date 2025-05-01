@@ -6,7 +6,7 @@ import streamlit as st
 
 # === STREAMLIT UI ===
 st.title("📈 Prognose med Prophet")
-st.write("Velg om du vil bruke en standardfil eller laste opp din egen fil med historiske salgsdata. Deretter kan du velge startdato, antall uker framover og ønsket salgskanal.")
+st.write("Velg om du vil bruke standardfilen eller laste opp din egen fil med historiske salgsdata. Deretter kan du velge startdato, antall uker framover og ønsket salgskanal.")
 
 # === Brukervalg ===
 use_default = st.checkbox("Bruk standardfil (salg_risbrod.csv)", value=True)
