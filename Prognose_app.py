@@ -58,12 +58,12 @@ else:
     st.markdown("""
     ### 📄 Eksempelfil for datastruktur
     
-    For å bruke denne appen med egne data, må datasettet ditt ha samme struktur som eksempelfilen under. Filen viser hvilke kolonner som kreves, og hvordan dataene bør være organisert uke for uke.
+    For å bruke denne appen med egne data, må datasettet ditt ha samme struktur som eksempelet under. Tabellen viser hvilke kolonner som kreves, og hvordan dataene må være organisert uke for uke.
     
-    Du kan laste ned og bruke den som en mal:
+    Du kan laste ned og bruke den som en mal dersom det er ønskelig.
     """)
 
-    st.write(df_example)
+    st.dataframe(df_example, height=100)
     
     # Last ned-knapp
     st.download_button(
