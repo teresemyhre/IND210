@@ -63,7 +63,7 @@ else:
     Du kan laste ned og bruke den som en mal dersom det er ønskelig.
     """)
 
-    st.dataframe(df_example, height=100)
+    st.write(df_example)
     
     # Last ned-knapp
     st.download_button(
