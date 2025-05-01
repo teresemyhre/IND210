@@ -1,12 +1,12 @@
 # IND210
 
-Prognose med Prophet - README
+## Prognose med Prophet - README
 
-Beskrivelse
+### Beskrivelse
 
 Dette er en enkel app for prognose av salgsvolum ved hjelp av Prophet-modellen. Appen lar deg bruke historiske salgsdata for å lage fremtidsprognoser, og den inkluderer også en lageranalyse som estimerer hvor lenge lageret hos grossist og detaljist vil vare basert på prognosen.
 
-Funksjonalitet:
+### Funksjonalitet:
 	1.	Filvalg:
 	•	Du kan velge å bruke en standardfil (salg_risbrod.csv) med eksempeldata, eller laste opp din egen fil med historiske salgsdata.
 	2.	Prognoseinnstillinger:
@@ -19,7 +19,7 @@ Funksjonalitet:
 	•	Beregn hvor lenge lageret hos grossist og detaljist vil vare basert på salgsprognosene.
 	•	Får varsler hvis lageret er i ferd med å gå tomt i løpet av den valgte prognoseperioden.
 
-Krav
+### Krav
 
 For å bruke denne appen, trenger du følgende Python-biblioteker:
 	•	pandas
@@ -28,13 +28,13 @@ For å bruke denne appen, trenger du følgende Python-biblioteker:
 	•	prophet
 	•	streamlit
 
-Installasjon
+### Installasjon
 
 Du kan installere de nødvendige bibliotekene ved å bruke pip:
 
 pip install pandas numpy matplotlib prophet streamlit
 
-Bruk
+### Bruk
 	1.	Kjør appen:
 For å starte appen, kan du bruke Streamlit ved å kjøre følgende kommando i terminalen:
 
@@ -54,11 +54,11 @@ streamlit run prognose_app.py
 	5.	Lagre og oppdater fil:
 	•	Du kan laste ned den oppdaterte filen med prognose og salgsdata.
 
-Eksempeldata
+### Eksempeldata
 
 Eksempeldatasettet er en CSV-fil som inneholder ukentlig salgsvolum for grossist og detaljist, lagerbeholdning, samt rekkevidde for grossist og detaljist. Detaljene kan lastes ned og brukes som mal for egne data.
 
-Lageranalyse
+### Lageranalyse
 
 Lageranalysen gir en estimert tid (i uker) som lageret vil vare basert på salgsprognosen. Dersom lageret er i ferd med å gå tomt i løpet av prognoseperioden, vil du få en advarsel.
 
