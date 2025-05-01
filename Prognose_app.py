@@ -107,13 +107,13 @@ else:
     df_prophet['ds'] = pd.to_datetime(df['Year'].astype(str) + df['Week'].astype(str) + '7', format='%G%V%u')
 
     # Filtrer datasettet for å kun bruke data fra startdato og fremover
-    df_filtered = df_prophet[df_prophet['ds'] >= startdato]
+    df_prophet = df_prophet[df_prophet['ds'] >= startdato]
 
     # Vis det filtrerte datasettet
-    st.write(df_filtered)
+    st.write(df_prophet)
 
     model = Prophet(weekly_seasonality=True)
-    model.fit(df_filtered[['ds', 'y']])
+    model.fit(df_prophet[['ds', 'y']])
 
     future = model.make_future_dataframe(periods=fremtidig_uker, freq='W')
     forecast = model.predict(future)
