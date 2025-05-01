@@ -11,10 +11,10 @@ st.write("Velg om du vil bruke en standardfil eller laste opp din egen fil med h
 # === Brukervalg ===
 use_default = st.checkbox("Bruk standardfil (salg_risbrod.csv)", value=True)
 
-with st.expander("📊 Last ned standardfilen (salg_risbrod.csv)"):
+with st.expander("📊 Last ned og oppdater standardfilen (salg_risbrod.csv)"):
     st.markdown(
         "Standardfilen brukes dersom du ikke laster opp din egen fil. "
-        "Du kan laste den ned her, oppdatere med dine egne data og så laste den opp igjen i appen."
+        "Om ønskelig, kan du laste den ned her, oppdatere med dine egne data og så laste den opp igjen i appen."
     )
     with open("salg_risbrod.csv", "rb") as f:
         st.download_button(
