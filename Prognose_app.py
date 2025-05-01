@@ -84,26 +84,6 @@ else:
     ax.grid(True)
     st.pyplot(fig)
 
-# === Lager vs prognose: Hvor lenge varer lageret? ===
-# Hent siste lagerbeholdning og konverter fra dpk til fpk
-dpk_to_fpk = 14
-siste_lager_wholesaler = df['Inventory in dpk / Wholesaler'].iloc[-1] * dpk_to_fpk
-siste_lager_retailer = df['Inventory in dpk / Retailer'].iloc[-1] * dpk_to_fpk
-
-# Simuler uke-for-uke hvor lenge lageret varer
-wholesale_lager = siste_lager_wholesaler
-retail_lager = siste_lager_retailer
-wholesale_uker = 0
-retail_uker = 0
-
-for uke_salg in forecast['yhat'][-fremtidig_uker:]:
-    if wholesale_lager >= uke_salg:
-        wholesale_lager -= uke_salg
-        wholesale_uker += 1
-    if retail_lager >= uke_salg:
-        retail_lager -= uke_salg
-        retail_uker += 1
-
 # === Lager vs prognose: Hvor lenge varer lageret hos grossist og detaljist? ===
 dpk_to_fpk = 14
 siste_lager_wholesaler = df['Inventory in dpk / Wholesaler'].iloc[-1] * dpk_to_fpk
@@ -147,12 +127,12 @@ for uke_salg in forecast_retailer['yhat'][-fremtidig_uker:]:
 
 # === Vis resultat til bruker ===
 st.markdown("### 🧮 Lageranalyse basert på prognose")
-st.write(f"📦 Lager hos grossist (wholesaler) varer i ca. **{wholesale_uker} uker** gitt prognosen.")
-st.write(f"🛒 Lager hos detaljist (retailer) varer i ca. **{retail_uker} uker** gitt prognosen.")
+st.write(f"📦 Lager hos wholesaler varer i ca. **{wholesale_uker} uker** gitt prognosen.")
+st.write(f"🛒 Lager hos retailer varer i ca. **{retail_uker} uker** gitt prognosen.")
 
 if wholesale_uker < fremtidig_uker:
     manko_uke = forecast_grossist['ds'].iloc[len(df_grossist) + wholesale_uker].strftime("%Y-%U")
-    st.warning(f"⚠️ **Grossistlager kan gå tomt i uke {manko_uke}**.")
+    st.warning(f"⚠️ **Wholesalerlager kan gå tomt i uke {manko_uke}**.")
 if retail_uker < fremtidig_uker:
     manko_uke = forecast_retailer['ds'].iloc[len(df_retailer) + retail_uker].strftime("%Y-%U")
-    st.warning(f"⚠️ **Detaljistlager kan gå tomt i uke {manko_uke}**.")
+    st.warning(f"⚠️ **Retailerlager kan gå tomt i uke {manko_uke}**.")
