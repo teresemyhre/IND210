@@ -60,7 +60,7 @@ else:
     
     For å bruke denne appen med egne data, må datasettet ditt ha samme struktur som eksempelet under. Tabellen viser hvilke kolonner som kreves, og hvordan dataene må være organisert uke for uke.
     
-    Du kan laste ned og bruke den som en mal dersom det er ønskelig.
+    Du kan laste ned og bruke den som mal dersom det er ønskelig.
     """)
 
     st.write(df_example)
