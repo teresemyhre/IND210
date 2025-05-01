@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from prophet import Prophet
 import streamlit as st
+import io
 
 # === STREAMLIT UI ===
 st.title("📈 Prognose med Prophet")
@@ -23,10 +24,6 @@ with st.expander("📊 Last ned og oppdater standardfilen (salg_risbrod.csv)"):
             file_name="salg_risbrod.csv",
             mime="text/csv"
         )
-
-import streamlit as st
-import pandas as pd
-import io
 
 # Eksempeldata
 data = {
@@ -88,15 +85,6 @@ df.columns = df.columns.str.strip()
 # Legg til uke-kolonne
 df['Year-Week'] = df['Year'].astype(str) + '-' + df['Week'].astype(str).str.zfill(2)
 
-# Vis lagerbeholdning siste uke for grossist og detaljist
-lager_wholesaler = df["Inventory in dpk / Wholesaler"].iloc[-1]*14
-lager_retailer = df["Inventory in dpk / Retailer"].iloc[-1]*14
-siste_uke = df['Year-Week'].iloc[-1]
-
-st.subheader(f"📦 Lagerbeholdning siste uke i datasettet ({siste_uke}):")
-col1, col2 = st.columns(2)
-col1.metric(label="Wholesaler (fpk)", value=int(lager_wholesaler))
-col2.metric(label="Retailer (fpk)", value=int(lager_retailer))
 
 # Finn relevante salgskolonner
 sales_columns = [col for col in df.columns if "Sales per week" in col]
@@ -141,6 +129,16 @@ else:
     ax.legend()
     ax.grid(True)
     st.pyplot(fig)
+
+# Vis lagerbeholdning siste uke for grossist og detaljist
+lager_wholesaler = df["Inventory in dpk / Wholesaler"].iloc[-1]*14
+lager_retailer = df["Inventory in dpk / Retailer"].iloc[-1]*14
+siste_uke = df['Year-Week'].iloc[-1]
+
+st.subheader(f"📦 Lagerbeholdning siste uke i datasettet ({siste_uke}):")
+col1, col2 = st.columns(2)
+col1.metric(label="Wholesaler (fpk)", value=int(lager_wholesaler))
+col2.metric(label="Retailer (fpk)", value=int(lager_retailer))
 
 # === Lager vs prognose: Hvor lenge varer lageret hos grossist og detaljist? ===
 dpk_to_fpk = 14
