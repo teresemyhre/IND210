@@ -126,9 +126,8 @@ for uke_salg in forecast_retailer['yhat'][-fremtidig_uker:]:
         retail_uker += 1
 
 # === Vis resultat til bruker ===
-st.info("Merk: Lageranalysen antar at det ikke gjøres nye bestillinger i perioden.")
-
 st.markdown("### 🧮 Lageranalyse basert på prognose")
+st.info("Obs: Lageranalysen antar at det ikke gjøres nye bestillinger i perioden.")
 st.write(f"📦 Lager hos wholesaler varer i ca. **{wholesale_uker} uker** gitt prognosen.")
 st.write(f"🛒 Lager hos retailer varer i ca. **{retail_uker} uker** gitt prognosen.")
 
