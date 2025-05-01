@@ -15,7 +15,7 @@ import streamlit as st
 import pandas as pd
 import io
 
-# Eksempel på datasett
+# Eksempeldata
 data = {
     "Year": [2015, 2015, 2015],
     "Week": [1, 2, 3],
@@ -34,21 +34,18 @@ data = {
 
 df_example = pd.DataFrame(data)
 
-# Lag en buffer og skriv data til denne
-buffer = io.StringIO()
-df_example.to_csv(buffer, index=False)
+# Lag en binær buffer
+buffer = io.BytesIO()
+buffer.write(df_example.to_csv(index=False).encode('utf-8'))
 buffer.seek(0)
 
-# Legg til en nedlastbar knapp for filen
+# Last ned-knapp
 st.download_button(
     label="Last ned eksempel-fil",
     data=buffer,
     file_name="eksempel_datasett.csv",
     mime="text/csv"
 )
-
-# Eventuell tekstforklaring
-st.write("Last ned en eksempel-CSV-fil som viser hvordan datasettet bør være strukturert.")
 
 # Hvis brukeren velger å bruke standardfil
 if use_default:
