@@ -107,13 +107,13 @@ else:
     df_prophet['ds'] = pd.to_datetime(df['Year'].astype(str) + df['Week'].astype(str) + '7', format='%G%V%u')
 
     # Filtrer datasettet for å kun bruke data fra startdato og fremover
-    df_prophet['ds'] = df_prophet[df_prophet['ds'] >= startdato]
+    df_filtered = df_prophet[df_prophet['ds'] >= startdato]
 
     # Vis det filtrerte datasettet
-    st.write(df_prophet)
+    st.write(df_filtered)
 
     model = Prophet(weekly_seasonality=True)
-    model.fit(df_prophet[['ds', 'y']])
+    model.fit(df_filtered[['ds', 'y']])
 
     future = model.make_future_dataframe(periods=fremtidig_uker, freq='W')
     forecast = model.predict(future)
@@ -125,9 +125,9 @@ else:
     # === Plotting ===
     fig, ax = plt.subplots(figsize=(14, 6))
     ax.plot(forecast['Year-Week'], forecast['yhat'], label='Prognose', linestyle='--', color='green')
-    ax.plot(df_prophet['year_week'], df_prophet['y'], label='Faktisk salg', linestyle='-')
+    ax.plot(df_filtered['year_week'], df_filtered['y'], label='Faktisk salg', linestyle='-')
     ax.fill_between(forecast['Year-Week'], forecast['yhat_lower'], forecast['yhat_upper'], alpha=0.2, label='95% intervall', color='green')
-    ax.axvline(x=forecast['Year-Week'][len(df_prophet)-1], color='grey', linestyle='-.', label='Prognosestart')
+    ax.axvline(x=forecast['Year-Week'][len(df_filtered)-1], color='grey', linestyle='-.', label='Prognosestart')
     ax.set_xticks(np.arange(0, len(forecast), 6))
     ax.set_xticklabels(forecast['Year-Week'][::6], rotation=45)
     ax.set_xlabel("Uke (År-Uke)")
