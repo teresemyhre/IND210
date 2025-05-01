@@ -104,7 +104,9 @@ sales_columns = [col for col in df.columns if "Sales per week" in col]
 if not sales_columns:
     st.error("Ingen salgskolonner funnet i filen.")
 else:
-    valgt_kolonne = st.selectbox("Velg salgskanal", options=sales_columns)
+    # Finn index til Retailer-kolonnen hvis den finnes
+    default_index = next((i for i, col in enumerate(sales_columns) if "Retailer" in col), 0)
+    valgt_kolonne = st.selectbox("Velg salgskanal", options=sales_columns, index=default_index)
 
     # === Brukerinput for Prophet-modell ===
     startdato = st.text_input("Startdato", "2015-04-12")
