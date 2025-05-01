@@ -104,15 +104,55 @@ for uke_salg in forecast['yhat'][-fremtidig_uker:]:
         retail_lager -= uke_salg
         retail_uker += 1
 
-# Vis resultat
+# === Lager vs prognose: Hvor lenge varer lageret hos grossist og detaljist? ===
+dpk_to_fpk = 14
+siste_lager_wholesaler = df['Inventory in dpk / Wholesaler'].iloc[-1] * dpk_to_fpk
+siste_lager_retailer = df['Inventory in dpk / Retailer'].iloc[-1] * dpk_to_fpk
+
+# --- Prognose for grossist ---
+df_grossist = df[['Year-Week', 'Sales per week in fpk / Wholesaler']].copy()
+df_grossist.columns = ['year_week', 'y']
+df_grossist['ds'] = pd.date_range(start=startdato, periods=len(df_grossist), freq='W')
+
+model_grossist = Prophet(weekly_seasonality=True)
+model_grossist.fit(df_grossist[['ds', 'y']])
+future_grossist = model_grossist.make_future_dataframe(periods=fremtidig_uker, freq='W')
+forecast_grossist = model_grossist.predict(future_grossist)
+
+# --- Prognose for detaljist ---
+df_retailer = df[['Year-Week', 'Sales per week in fpk / Retailer']].copy()
+df_retailer.columns = ['year_week', 'y']
+df_retailer['ds'] = pd.date_range(start=startdato, periods=len(df_retailer), freq='W')
+
+model_retailer = Prophet(weekly_seasonality=True)
+model_retailer.fit(df_retailer[['ds', 'y']])
+future_retailer = model_retailer.make_future_dataframe(periods=fremtidig_uker, freq='W')
+forecast_retailer = model_retailer.predict(future_retailer)
+
+# === Lageranalyse: Simuler uke for uke ===
+wholesale_lager = siste_lager_wholesaler
+retail_lager = siste_lager_retailer
+wholesale_uker = 0
+retail_uker = 0
+
+for uke_salg in forecast_grossist['yhat'][-fremtidig_uker:]:
+    if wholesale_lager >= uke_salg:
+        wholesale_lager -= uke_salg
+        wholesale_uker += 1
+
+for uke_salg in forecast_retailer['yhat'][-fremtidig_uker:]:
+    if retail_lager >= uke_salg:
+        retail_lager -= uke_salg
+        retail_uker += 1
+
+# === Vis resultat til bruker ===
 st.markdown("### 🧮 Lageranalyse basert på prognose")
 st.write(f"📦 Lager hos grossist (wholesaler) varer i ca. **{wholesale_uker} uker** gitt prognosen.")
 st.write(f"🛒 Lager hos detaljist (retailer) varer i ca. **{retail_uker} uker** gitt prognosen.")
 
 if wholesale_uker < fremtidig_uker:
-    manko_uke = forecast['Year-Week'].iloc[len(df_prophet) + wholesale_uker]
+    manko_uke = forecast_grossist['ds'].iloc[len(df_grossist) + wholesale_uker].strftime("%Y-%U")
     st.warning(f"⚠️ **Grossistlager kan gå tomt i uke {manko_uke}**.")
 if retail_uker < fremtidig_uker:
-    manko_uke = forecast['Year-Week'].iloc[len(df_prophet) + retail_uker]
+    manko_uke = forecast_retailer['ds'].iloc[len(df_retailer) + retail_uker].strftime("%Y-%U")
     st.warning(f"⚠️ **Detaljistlager kan gå tomt i uke {manko_uke}**.")
-    
