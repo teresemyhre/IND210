@@ -129,7 +129,7 @@ for uke_salg in forecast_retailer['yhat'][-fremtidig_uker:]:
 st.markdown("### 🧮 Lageranalyse basert på prognose")
 st.markdown(
     "<p style='font-size: 0.95rem; color: gray;'>Obs: Lageranalysen antar at det ikke gjøres nye bestillinger i perioden.</p>",
-    unsafe_allow_html=True
+    unsafe_allow_html=True, font-style: italic
 )
 st.write(f"📦 Lager hos wholesaler varer i ca. **{wholesale_uker} uker** gitt prognosen.")
 st.write(f"🛒 Lager hos retailer varer i ca. **{retail_uker} uker** gitt prognosen.")
