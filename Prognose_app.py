@@ -109,9 +109,6 @@ else:
     # Filtrer datasettet for å kun bruke data fra startdato og fremover
     df_filtered = df_prophet[df_prophet['ds'] >= startdato]
 
-    # Vis det filtrerte datasettet
-    st.dataframe(df_filtered, height=200)
-
     model = Prophet(weekly_seasonality=True)
     model.fit(df_filtered[['ds', 'y']])
 
