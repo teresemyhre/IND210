@@ -39,6 +39,14 @@ buffer = io.BytesIO()
 buffer.write(df_example.to_csv(index=False).encode('utf-8'))
 buffer.seek(0)
 
+st.markdown("""
+### 📄 Eksempelfil for datastruktur
+
+For å bruke denne appen med egne data, må datasettet ditt ha samme struktur som eksempelfilen under. Filen viser hvilke kolonner som kreves, og hvordan dataene bør være organisert uke for uke.
+
+Du kan laste ned og bruke den som en mal:
+""")
+
 # Last ned-knapp
 st.download_button(
     label="Last ned eksempel-fil",
