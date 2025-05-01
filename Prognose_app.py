@@ -32,6 +32,16 @@ df.columns = df.columns.str.strip()
 # Legg til uke-kolonne
 df['Year-Week'] = df['Year'].astype(str) + '-' + df['Week'].astype(str).str.zfill(2)
 
+# Vis lagerbeholdning siste uke for grossist og detaljist
+lager_wholesaler = df["Inventory in dpk / Wholesaler"].iloc[-1]
+lager_retailer = df["Inventory in dpk / Retailer"].iloc[-1]
+siste_uke = df['Year-Week'].iloc[-1]
+
+st.subheader(f"📦 Lagerbeholdning siste uke i datasettet ({siste_uke}):")
+col1, col2 = st.columns(2)
+col1.metric(label="Wholesaler (dpk)", value=int(lager_wholesaler))
+col2.metric(label="Retailer (dpk)", value=int(lager_retailer))
+
 # Finn relevante salgskolonner
 sales_columns = [col for col in df.columns if "Sales per week" in col]
 
