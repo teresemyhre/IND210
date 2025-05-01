@@ -130,16 +130,6 @@ else:
     ax.grid(True)
     st.pyplot(fig)
 
-# Vis lagerbeholdning siste uke for grossist og detaljist
-lager_wholesaler = df["Inventory in dpk / Wholesaler"].iloc[-1]*14
-lager_retailer = df["Inventory in dpk / Retailer"].iloc[-1]*14
-siste_uke = df['Year-Week'].iloc[-1]
-
-st.subheader(f"📦 Lagerbeholdning siste uke i datasettet ({siste_uke}):")
-col1, col2 = st.columns(2)
-col1.metric(label="Wholesaler (fpk)", value=int(lager_wholesaler))
-col2.metric(label="Retailer (fpk)", value=int(lager_retailer))
-
 # === Lager vs prognose: Hvor lenge varer lageret hos grossist og detaljist? ===
 dpk_to_fpk = 14
 siste_lager_wholesaler = df['Inventory in dpk / Wholesaler'].iloc[-1] * dpk_to_fpk
@@ -183,6 +173,26 @@ for uke_salg in forecast_retailer['yhat'][-fremtidig_uker:]:
 
 # === Vis resultat til bruker ===
 st.markdown("### 🧮 Lageranalyse basert på prognose")
+
+
+
+
+
+# Vis lagerbeholdning siste uke for grossist og detaljist
+lager_wholesaler = df["Inventory in dpk / Wholesaler"].iloc[-1]*14
+lager_retailer = df["Inventory in dpk / Retailer"].iloc[-1]*14
+siste_uke = df['Year-Week'].iloc[-1]
+
+st.markdown(f"#### 📦 Lagerbeholdning siste uke i datasettet ({siste_uke}):")
+col1, col2 = st.columns(2)
+col1.metric(label="Wholesaler (fpk)", value=int(lager_wholesaler))
+col2.metric(label="Retailer (fpk)", value=int(lager_retailer))
+
+
+
+
+
+
 st.markdown(
     "<p style='font-size: 0.95rem; color: gray; font-style: italic;'>Obs: Lageranalysen viser hvor lenge lageret rekker dersom det ikke gjøres nye bestillinger i perioden.</p>",
     unsafe_allow_html=True
