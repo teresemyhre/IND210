@@ -126,11 +126,11 @@ for uke_salg in forecast_retailer['yhat'][-fremtidig_uker:]:
         retail_uker += 1
 
 # === Vis resultat til bruker ===
+st.info("Merk: Lageranalysen antar at det ikke gjøres nye bestillinger i perioden.")
+
 st.markdown("### 🧮 Lageranalyse basert på prognose")
 st.write(f"📦 Lager hos wholesaler varer i ca. **{wholesale_uker} uker** gitt prognosen.")
 st.write(f"🛒 Lager hos retailer varer i ca. **{retail_uker} uker** gitt prognosen.")
-
-st.caption("Merk: Lageranalysen er begrenset til valgt prognoseperiode. Lageret kan vare lenger enn vist dersom prognoseperioden utvides.")
 
 if wholesale_uker < fremtidig_uker:
     manko_uke = forecast_grossist['ds'].iloc[len(df_grossist) + wholesale_uker].strftime("%Y-%U")
