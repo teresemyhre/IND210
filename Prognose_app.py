@@ -126,7 +126,7 @@ else:
     ax.plot(forecast['Year-Week'], forecast['yhat'], label='Prognose', linestyle='--', color='green')
     ax.plot(df_filtered['year_week'], df_filtered['y'], label='Faktisk salg', linestyle='-')
     ax.fill_between(forecast['Year-Week'], forecast['yhat_lower'], forecast['yhat_upper'], alpha=0.2, label='95% intervall', color='green')
-    ax.axvline(x=forecast['year_week'][len(df_filtered)-1], color='grey', linestyle='-.', label='Prognosestart')
+    ax.axvline(x=forecast['Year-Week'][len(df_filtered)-1], color='grey', linestyle='-.', label='Prognosestart')
     ax.set_xticks(np.arange(0, len(forecast), 6))
     ax.set_xticklabels(forecast['Year-Week'][::6], rotation=45)
     ax.set_xlabel("Uke (År-Uke)")
