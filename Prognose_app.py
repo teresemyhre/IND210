@@ -11,6 +11,45 @@ st.write("Velg om du vil bruke en standardfil eller laste opp din egen fil. Dere
 # === Brukervalg ===
 use_default = st.checkbox("Bruk standardfil (salg_risbrod.csv)", value=True)
 
+import streamlit as st
+import pandas as pd
+import io
+
+# Eksempel på datasett
+data = {
+    "Year": [2015, 2015, 2015],
+    "Week": [1, 2, 3],
+    "Accumulated sales volume in fpk / Supplier": [100, 150, 200],
+    "Accumulated sales volume in fpk / Wholesaler": [80, 120, 160],
+    "Accumulated sales volume in fpk / Retailer": [60, 90, 120],
+    "Accumulated sales volume in fpk / total": [240, 360, 480],
+    "Sales per week in fpk / Supplier": [10, 15, 20],
+    "Sales per week in fpk / Wholesaler": [8, 12, 16],
+    "Sales per week in fpk / Retailer": [6, 9, 12],
+    "Inventory in dpk / Wholesaler": [1000, 950, 900],
+    "Inventory in dpk / Retailer": [800, 750, 700],
+    "rekkevidde / Wholesaler": [12, 11, 10],
+    "rekkevidde / Retailer": [10, 9, 8]
+}
+
+df_example = pd.DataFrame(data)
+
+# Lag en buffer og skriv data til denne
+buffer = io.StringIO()
+df_example.to_csv(buffer, index=False)
+buffer.seek(0)
+
+# Legg til en nedlastbar knapp for filen
+st.download_button(
+    label="Last ned eksempel-fil",
+    data=buffer,
+    file_name="eksempel_datasett.csv",
+    mime="text/csv"
+)
+
+# Eventuell tekstforklaring
+st.write("Last ned en eksempel-CSV-fil som viser hvordan datasettet bør være strukturert.")
+
 # Hvis brukeren velger å bruke standardfil
 if use_default:
     df = pd.read_csv("salg_risbrod.csv", na_values="-")
