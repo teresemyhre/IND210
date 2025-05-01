@@ -36,11 +36,7 @@ pip install pandas numpy matplotlib prophet streamlit
 
 ### Bruk
 	1.	Kjør appen:
-For å starte appen, kan du bruke Streamlit ved å kjøre følgende kommando i terminalen:
-
-streamlit run prognose_app.py
-
-
+ 	•	For å starte appen, kan du bruke Streamlit ved å kjøre følgende kommando i terminalen: streamlit run prognose_app.py
 	2.	Velg fil:
 	•	Hvis du vil bruke den standardfilen (salg_risbrod.csv), kan du bare krysse av for å bruke den.
 	•	Hvis du har egne data, kan du laste opp en CSV-fil med samme struktur som eksempelfilen.
