@@ -104,8 +104,6 @@ else:
     # === Prophet-modell ===
     df_prophet = df[['Year-Week', valgt_kolonne]].copy()
     df_prophet.columns = ['year_week', 'y']
-    # df_prophet['ds'] = pd.date_range(start=startdato, periods=len(df_prophet), freq='W')
-    # df_prophet['ds'] = pd.to_datetime(df_prophet['year_week'] + "-7", format="%Y-%W-%d")
     df_prophet['ds'] = pd.to_datetime(df['Year'].astype(str) + df['Week'].astype(str) + '7', format='%G%V%u')
 
     # Filtrer datasettet for å kun bruke data fra startdato og fremover
