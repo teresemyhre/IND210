@@ -136,9 +136,9 @@ st.write(f"🛒 Lager hos retailer varer i ca. **{retail_uker} uker** gitt progn
 
 if wholesale_uker < fremtidig_uker:
     manko_uke = forecast_grossist['ds'].iloc[len(df_grossist) + wholesale_uker].strftime("%Y-%U")
-    st.warning(f"⚠️ **Wholesalerlager kan gå tomt i uke {manko_uke}**.")
+    st.warning(f"⚠️ **Wholesale-lager kan gå tomt i uke {manko_uke}**.")
 if retail_uker < fremtidig_uker:
     manko_uke = forecast_retailer['ds'].iloc[len(df_retailer) + retail_uker].strftime("%Y-%U")
-    st.warning(f"⚠️ **Retailerlager kan gå tomt i uke {manko_uke}**.")
+    st.warning(f"⚠️ **Retail-lager kan gå tomt i uke {manko_uke}**.")
 
 st.caption("Merk: Lageranalysen er begrenset til valgt prognoseperiode. Lageret kan vare lenger enn vist dersom prognoseperioden utvides.")
