@@ -118,8 +118,8 @@ else:
     forecast = model.predict(future)
 
     # Lag fremtidige etiketter
-    # future_weeks = df_filtered['year_week'].tolist() + [f'Fremtid-{i+1}' for i in range(fremtidig_uker)]
-    # forecast['Year-Week'] = future_weeks
+    future_weeks = df_filtered['year_week'].tolist() + [f'Fremtid-{i+1}' for i in range(fremtidig_uker)]
+    forecast['Year-Week'] = future_weeks
 
     # === Plotting ===
     fig, ax = plt.subplots(figsize=(14, 6))
